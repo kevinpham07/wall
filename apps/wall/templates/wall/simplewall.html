@@ -33,16 +33,16 @@
 						<li class="list-inline font-weight-bold">{{ comment.creator.first_name }} - {{ comment.created_at }}</li>
 						<ul>
 							<li class="list-inline">{{ comment.content }}</li>
-						{% endfor %}
-							<li class="list-inline">
-								<form action="/comment/" method="post">
-									{% csrf_token %}
-									<input type="hidden" name="msg.id" value="{{ msg.id }}">
-									<li class="list-inline"><textarea class="col-12" name="comment"></textarea></li>
-									<li class="list-inline"><div class="text-right"><input type="submit" class="btn btn-success" value="Post a comment"></div></li>
-								</form>
-							</li>
 						</ul>
+						{% endfor %}
+						<li class="list-inline">
+							<form action="/comment/" method="post">
+								{% csrf_token %}
+								<input type="hidden" name="msg.id" value="{{ msg.id }}">
+								<li class="list-inline"><textarea class="col-12" name="comment"></textarea></li>
+								<li class="list-inline"><div class="text-right"><input type="submit" class="btn btn-success" value="Post a comment"></div></li>
+							</form>
+						</li>
 					</ul>
 				</ul>
 			</ul>
