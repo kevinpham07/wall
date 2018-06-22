@@ -1,0 +1,9 @@
+bcrypt==3.1.4
+cffi==1.11.5
+Django==1.10
+djangounchained-flash==1.2
+jsonpickle==0.9.6
+Pillow==5.1.0
+pycparser==2.18
+pytz==2018.4
+six==1.11.0

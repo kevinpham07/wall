@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Simple Wall</title>
+		{% load static %}
+		<link rel="stylesheet" type="text/css" href="{% static 'wall/css/bootstrap.css' %}">
+	</head>
+	<body>
+		<div class="container">
+			<div class="border-bottom">
+				<h2 class="d-inline-block">CodingDojo Wall</h2>
+				<div class="text-right align-top">
+					<p class="d-inline-block">Welcome {{ request.session.name }}!</p>
+					<a href="/logout/">logout</a>
+				</div>
+			</div>
+			<p>Post a message</p>
+			<form action="/message/" method="post">
+				{% csrf_token %}
+				<textarea class="col-12" name="message"></textarea>
+				<div class="text-right">
+					<input type="submit" class="btn btn-primary" value="Post a message">
+				</div>
+			</form>
+			{% for msg in messages %}
+			<ul>	
+				<li class="list-inline font-weight-bold">{{ msg.user.first_name }} - {{ msg.created_at }}</li>
+				<ul>
+					<li class="list-inline">{{ msg.content }}</li>
+					<ul>
+						{% for comment in msg.comments.all %}
+						<li class="list-inline font-weight-bold">{{ comment.creator.first_name }} - {{ comment.created_at }}</li>
+						<ul>
+							<li class="list-inline">{{ comment.content }}</li>
+						{% endfor %}
+							<li class="list-inline">
+								<form action="/comment/" method="post">
+									{% csrf_token %}
+									<input type="hidden" name="msg.id" value="{{ msg.id }}">
+									<li class="list-inline"><textarea class="col-12" name="comment"></textarea></li>
+									<li class="list-inline"><div class="text-right"><input type="submit" class="btn btn-success" value="Post a comment"></div></li>
+								</form>
+							</li>
+						</ul>
+					</ul>
+				</ul>
+			</ul>
+			{% endfor %}
+		</div>
+	</body>
+</html>
